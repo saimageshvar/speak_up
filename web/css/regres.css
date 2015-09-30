@@ -1,0 +1,40 @@
+#label-custom{
+	
+    display: block;
+    text-align: left;
+	
+}
+#label-custom.labelcls{
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    height: 200px;
+    width: 991px;
+	
+}
+
+#button-custom-res{
+	right:100px;
+	height:30px;
+	width:100px;
+	color:red ;
+}
+('.vote').click(function () {
+  $(this).toggleClass('on');
+});
+.vote {
+  display: inline-block;
+  overflow: hidden;
+  width: 40px;
+  height: 25px;
+  cursor: pointer;
+   background: url('http://i.stack.imgur.com/iqN2k.png');
+  background-position: 0 -25px;
+} 
+
+
+.vote.on {
+  background-position: 0 2px;
+}
+
+ 
