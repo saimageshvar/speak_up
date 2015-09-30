@@ -53,8 +53,10 @@ public class DownVote extends HttpServlet {
             String sql = "delete from upvote where sid=" + request.getParameter("sid") + " and user_id='" + session.getAttribute("user_id") + "'";
             try {
                 stmt.executeUpdate(sql);
+                sql = "update suggestions set votes = votes - 1 where sid = " + request.getParameter("sid") ;
+                stmt.executeUpdate(sql);
                 //out.println(session.getAttribute("emotion"));
-                response.sendRedirect("http://localhost:8024/Regusersresult.jsp");
+                 response.sendRedirect("http://localhost:8024/Regusersresult.jsp");
             } catch (SQLException ex) {
                 Logger.getLogger(DownVote.class.getName()).log(Level.SEVERE, null, ex);
             }

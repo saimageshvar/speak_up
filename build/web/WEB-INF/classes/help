@@ -1,0 +1,9 @@
+To call a jsp page from servlet:
+    HttpServletResponse.sendRedirect("/your/new/location.jsp")
+To pass values to a jsp page from servlet:
+    req.setAttribute("myname",login);
+    req.getRequestDispatcher("welcome.jsp").forward(req, resp); 
+    
+    Or
+
+    response.sendRedirect( "example.jsp?foo=bar" );
