@@ -34,35 +34,40 @@ public class Update extends HttpServlet {
             String new_password = request.getParameter("pwd");
             String c_new_password = request.getParameter("c_pwd");
 
-            out.println(request.getParameter("photo"));
+            //out.println(request.getParameter("photo"));
             //getting photo
             InputStream inputStream = null;
-            Part filePart=null;
-            try
-            {
+            Part filePart = null;
+            try {
                 filePart = request.getPart("photo");
-            }
-            catch(Exception e)
-            {
+            } catch (Exception e) {
                 out.println(e);
             }
-            out.println("2");
+            //out.println("2");
             if (filePart != null) {
                 // prints out some information for debugging
                 out.println(filePart.getName());
                 out.println(filePart.getSize());
                 out.println(filePart.getContentType());
-
+                
                 // obtains input stream of the upload file
-               
-                inputStream = filePart.getInputStream();
-                out.write("file");
+                try
+                {
+                    if (filePart.getSize() != 0) {
+                    inputStream = filePart.getInputStream();
+                    out.write("file");
+                }
+                }
+                catch(Exception e)
+                {
+                out.println(e);
+                }
             }
 
             if (c_new_password.equals(new_password)) {
                 User u = new User();
                 out.println("inside if");
-                u.update((String)session.getAttribute("user_id") , new_fname , new_lname , new_email , new_password , inputStream);
+                u.update((String) session.getAttribute("user_id"), new_fname, new_lname, new_email, new_password, inputStream);
                 out.println("after update");
                 session.setAttribute("fname", new_fname);
                 session.setAttribute("lname", new_lname);

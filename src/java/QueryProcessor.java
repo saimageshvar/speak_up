@@ -32,8 +32,11 @@ public class QueryProcessor {
         String res[] = new String[2];
         if(rs.next())
         {
+            
             res[0]=rs.getString("sentence");
             res[1]=rs.getString("sen_id");
+            sql = "update emotions set hits = hits + 1 where emotion='" + this.emotion + "'";
+            st.executeUpdate(sql);
             return res;
         }
         

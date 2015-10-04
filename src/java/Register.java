@@ -48,6 +48,9 @@ public class Register extends HttpServlet {
                 session.setAttribute("fname", g.fname);
                 session.setAttribute("lname", g.lname);
                 session.setAttribute("email", g.email);
+                session.setAttribute("searches",0);
+                session.setAttribute("comments",0);
+                session.setAttribute("suggestions",0);
                 response.sendRedirect("http://localhost:8024/profile.jsp");
 
             } else {

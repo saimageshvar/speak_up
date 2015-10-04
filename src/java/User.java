@@ -8,6 +8,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.*;
 
+/**
+ *
+ * @author sai
+ */
 public class User {
 
     String user_id;
@@ -17,6 +21,7 @@ public class User {
     String gender;
     String dob;
     String email;
+    int searches , comments , suggestions;
 
     User() {
 
@@ -63,6 +68,9 @@ public class User {
                     this.fname = rs.getString("fname");
                     this.lname = rs.getString("lname");
                     this.email = rs.getString("email");
+                    this.searches = rs.getInt("searches");
+                    this.comments = rs.getInt("comments");
+                    this.suggestions = rs.getInt("suggestions");
                     return true;
                 } else {
                     return false;

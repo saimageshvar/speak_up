@@ -1,15 +1,18 @@
 #label-custom{
 	
-    display: block;
+   
     text-align: left;
-	
+	color:black;
+	display: inline-block;
 }
 #label-custom.labelcls{
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
-    height: 1000px;
-    width: 1000px;
+    height:100px;
+	width:700px;
+	color:#D9230F;
+	display: inline-block;
 }
 #button-custom{
 	right:100px;

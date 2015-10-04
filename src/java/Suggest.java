@@ -52,8 +52,12 @@ public class Suggest extends HttpServlet {
                 Logger.getLogger(Suggest.class.getName()).log(Level.SEVERE, null, ex);
             }
             String sql = "insert into suggestions (suggestions,user_id,emotion) values ('" + request.getParameter("sugg") + "','" + session.getAttribute("user_id") + "','"  + session.getAttribute("emotion") + "')";
+            
             try {
                 stmt.executeUpdate(sql);
+                sql = "update usermaster set suggestions = suggestions + 1 where user_id='" + session.getAttribute("user_id") + "'";
+                stmt.executeUpdate(sql);
+                session.setAttribute("suggestions",(Integer)session.getAttribute("suggestions")+1);
             } catch (SQLException ex) {
                 Logger.getLogger(Suggest.class.getName()).log(Level.SEVERE, null, ex);
             }

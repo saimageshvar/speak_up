@@ -58,19 +58,19 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand topnav" href="index.html">Speak Up!</a>
+                    <a class="navbar-brand topnav" href="index.jsp">Speak Up!</a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="register.html">Register</a>
+                            <a href="register.jsp">Register</a>
                         </li>
                         <li>
-                            <a href="login.html">Login</a>
+                            <a href="login.jsp">Login</a>
                         </li>
                         <li>
-                            <a href="offline.html">Offline Support</a>
+                            <a href="Offline">Offline Support</a>
                         </li>
                     </ul>
                 </div>
@@ -136,19 +136,19 @@
                                                 <div class="col-lg-12">
                                                     <ul class="list-inline">
                                                         <li>
-                                                            <a href="index.html">Home</a>
+                                                            <a href="index.jsp">Home</a>
                                                         </li>
                                                         <li class="footer-menu-divider">&sdot;</li>
                                                         <li>
-                                                            <a href="login.html">Login</a>
+                                                            <a href="login.jsp">Login</a>
                                                         </li>
                                                         <li class="footer-menu-divider">&sdot;</li>
                                                         <li>
-                                                            <a href="register.html">Register</a>
+                                                            <a href="register.jsp">Register</a>
                                                         </li>
                                                         <li class="footer-menu-divider">&sdot;</li>
                                                         <li>
-                                                            <a href="support.html">Offline Support</a>
+                                                            <a href="Offline">Offline Support</a>
                                                         </li>
                                                     </ul>
                                                     <p class="copyright text-muted small">Copyright &copy; Speak Up Design Team 2015. All Rights Reserved</p>

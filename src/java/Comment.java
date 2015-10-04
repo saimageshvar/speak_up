@@ -50,9 +50,10 @@ public class Comment extends HttpServlet {
             stmt = conn.createStatement();
             String sql = "insert into comments (comment,user_id,sen_id,emotion) values ('" + request.getParameter("comment") + "','" + session.getAttribute("user_id") + "'," + session.getAttribute("sen_id") + ",'" + session.getAttribute("emotion") + "')";
             stmt.executeUpdate(sql);
-            
+            sql = "update usermaster set comments = comments + 1 where user_id='" + session.getAttribute("user_id") + "'";
+            stmt.executeUpdate(sql);
+            session.setAttribute("comments", (Integer) session.getAttribute("comments") + 1);
             response.sendRedirect("http://localhost:8024/Regusersresult.jsp");
-            
 
         }
     }

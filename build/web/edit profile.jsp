@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <!DOCTYPE html>
 
 <% if (session.getAttribute("user_id") == null) { %>
@@ -64,7 +65,7 @@
                             <a href="login.html">Login</a>
                         </li> -->
                         <li>
-                            <a href="support.html">Offline Support</a>
+                            <a href="Offline">Offline Support</a>
                         </li>
                     </ul>
                 </div>
@@ -105,7 +106,18 @@
                         <!-- left column -->
                         <div class="col-md-3">
                             <div class="text-center">
-                                <img src="" class="avatar img-circle" alt="avatar">
+                                 <% File file = new File("C:/Users/user/Documents/NetBeansProjects/speak_up/web/pro_pic/" + session.getAttribute("user_id") + ".jpg");
+                                           
+                                            if (file.exists()) {
+                                        %>
+
+                                        <img src="pro_pic/<%= session.getAttribute("user_id")%>.jpg" class="img-responsive thumbnail">
+                                        <!--<img src="https://farm7.staticflickr.com/6163/6195546981_200e87ddaf_b.jpg" class="img-responsive thumbnail">-->
+                                        
+                                        <% } else { %>
+                                        
+                                        <img src="pro_pic/default.jpg" class="img-responsive thumbnail">
+                                        <% } %>
                                 <h6>Upload a different photo...</h6>
 
                                 <input type="file" name="photo" value="" class="form-control">
@@ -115,9 +127,9 @@
                         <!-- edit form column -->
                         <div class="col-md-9 personal-info">
                             <div class="alert alert-info alert-dismissable">
-                                <a class="panel-close close" data-dismiss="alert">×</a> 
+                                <a class="panel-close close" data-dismiss="alert">x</a> 
                                 <i class="fa fa-coffee"></i>
-                                This is an <strong>.alert</strong>. Use this to show important messages to the user.
+                               Change Password if necessary
                             </div>
                             <h3>Personal info</h3>
 
@@ -309,7 +321,7 @@
                          </li>
                          <li class="footer-menu-divider">&sdot;</li>-->
                         <li> 
-                            <a href="support.html">Offline Support</a>
+                            <a href="Offline">Offline Support</a>
                         </li>
                     </ul>
                     <p class="copyright text-muted small">Copyright &copy; Speak Up Design Team 2015. All Rights Reserved</p>

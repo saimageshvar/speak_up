@@ -7,6 +7,12 @@
 <html lang="en">
 
     <head>
+        <style>
+            button.btn.btn-danger
+            {
+               color:black;background-color:white;border-color:#d43f3a;  
+            }
+           </style>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,12 +53,14 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
-
+                        <li>
+                            <a href="profile.jsp"> <%= session.getAttribute("user_id") %> </a>
+                        </li>
                         <li>
                             <a href="logout.jsp">Logout</a>
                         </li>
                         <li>
-                            <a href="offline.html">Offline Support</a>
+                            <a href="Offline">Offline Support</a>
                         </li>
                     </ul>
                 </div>
@@ -68,26 +76,16 @@
                         <div class="intro-message"> 
 
 
-                            <div id="custom-search-input" align="top">
+                            <div id="custom-search-input" align="top-leftwards">
 
-                                <div class="input-group col-md-5" align="center" >
+                                <input type="label" style="height:40px;align:left;width:700px" class="search-query form-control" value=" <%= session.getAttribute("result")%> " />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-danger" type="button" onclick="location.reload();">
+                                        <span class=" glyphicon glyphicon-refresh"></span>
+                                    </button>
+                                </span>
+                            </div>
 
-                                    <input type="text" class="  search-query form-control" placeholder="Search" />
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-danger" type="button">
-                                            <span class=" glyphicon glyphicon-search" >
-                                            </span>
-                                        </button>
-                                    </span>
-
-                                </div>
-                            </div>
-                            <div id="label-custom" align="left">
-                                <input type="label" class="labelcls" style="width:470px" value=" <%= session.getAttribute("result")%> "/>
-                            </div>
-                            <div id="button-custom-res" align="right">
-                                <input type="submit" value="Next">
-                            </div>
 
                             <%
                                 String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -109,115 +107,123 @@
 
                             <div style="float:left; width:50%;">
                                 <h3 align="left">Comments</h3>
-                                <div style="width:365px;height:150px;line-height:3em;overflow:auto;padding:5px;">
-                                    <%                                        while (rs.next()) {
 
-                                            out.println(rs.getString("user_id") + " : " + rs.getString("comment") + "<br/>");
-                                        }
-                                    %>
+                                <div id="custom-search-input" align="left" style="width:465px;height:250px;line-height:3em;overflow:auto;padding:5px;">
+                                    <%     while (rs.next()) {%>
+                                    <%= rs.getString("user_id")%> 
+                                    <input type="label" class="search-query form-control" readonly value="<%= rs.getString("comment")%>" /> <br/>
 
+                                    <% } %>
                                 </div>
-
 
                                 <h3 align="left">Your Comments</h3>
                                 <form action="Comment" method="post">
-                                    <input type="text" align="center" class="  txt form-control" name="comment" placeholder="Your comments goes here" />
-                                    <div id="button-custom-res" align="right">
-                                        <input type="submit">
-
-                                    </div>
+                                    
+                                    <input type="text" align="center" class="  txt form-control" name="comment" style="width:400px" placeholder="Your comments goes here" />
+                                    <button class="btn btn-danger" type="submit">
+                                        <span class=" glyphicon glyphicon-ok"></span>
+                                    </button>
+                                    
                                 </form>
 
                             </div>
-                            <div style="float:right; width:50%;">
 
-                                <h3 align="left">Suggestions</h3>
-                                <div style="width:365px;height:150px;line-height:3em;overflow:auto;padding:5px;">
-                                    <%
-                                        sql = "select sid, suggestions , user_id from suggestions where emotion='" + session.getAttribute("emotion") + "'";
-                                        rs = stmt.executeQuery(sql);
+                       
+                        <div  style="float:right; width:50%;">
+
+                            <h3 align="left">Suggestions</h3>
+                            <div id="custom-search-input" style="width:465px;height:250px;line-height:3em;padding:5px;overflow:auto">
+                                <%
+                                    sql = "select sid, suggestions , user_id from suggestions where emotion='" + session.getAttribute("emotion") + "'";
+                                    rs = stmt.executeQuery(sql);
                                       
-                                        while (rs.next()) {
-                                            Statement st = conn.createStatement();
-                                            sql = "select sid from upvote where user_id='" + session.getAttribute("user_id") + "' and sid=" + rs.getInt("sid");
-                                            ResultSet rs1 = st.executeQuery(sql);
-                                            out.println(rs.getString("user_id") + " : " + rs.getString("suggestions"));
-                                            if (rs1.next()) {
-                                                out.print("<span class=\"input-group-btn\"><button class=\"btn btn-danger\" id=\"" + rs.getString("sid") + "\" type=\"button\" value=\"" + rs.getInt("sid") + "\" onclick=\"decr("+ rs.getString("sid") +");\"> <span class=\" glyphicon glyphicon-heart\"> </span></button></span><br/>");
-                                            } else {
-                                                out.print("<span class=\"input-group-btn\"> <button class=\"btn btn-danger\" id=\"" + rs.getString("sid") + "\" type=\"button\" value=\"" + rs.getInt("sid") + "\" onclick=\"incr("+ rs.getString("sid") +");\"> <span class=\" glyphicon glyphicon-heart-empty\"> </span></button></span><br/>");
-                                            }
-                                        }
+                                    while (rs.next()) {
+                                        Statement st = conn.createStatement();
+                                        sql = "select sid from upvote where user_id='" + session.getAttribute("user_id") + "' and sid=" + rs.getInt("sid");
+                                        ResultSet rs1 = st.executeQuery(sql);
+                                        //out.println(rs.getString("user_id") + " : " + rs.getString("suggestions")); %>
+                                        <div id="custom-search-input" align="left" >
+                                       <%= rs.getString("user_id")%> 
+                                    <input type="label" class="search-query form-control" style="width:365px" readonly value="<%= rs.getString("suggestions")%>" /> <br/>
 
-
-                                    %>
-                                    <p id="demo"></p>
-                                    <script>
-                                        function decr(v)
-                                        {
-                                            //var x = document.getElementById("dec").value;
-                                            window.location = "http://localhost:8024/DownVote?sid="+v;
-
-
-                                        }
-                                        function incr(v)
-                                        {
-                                            //var x = document.getElementById("inc").value;
-                                            window.location = "http://localhost:8024/UpVote?sid="+v;
-
-                                        }
-                                    </script>
-
+                                    
                                 </div>
+                                      <%  if (rs1.next()) {
+                                            out.print("<span class=\"input-group-btn\"><button class=\"btn btn-danger\" id=\"" + rs.getString("sid") + "\" type=\"button\" value=\"" + rs.getInt("sid") + "\" onclick=\"decr("+ rs.getString("sid") +");\"> <span class=\" glyphicon glyphicon-heart\"> </span></button></span><br/>");
+                                        } else {
+                                            out.print("<span class=\"input-group-btn\"> <button class=\"btn btn-danger\" id=\"" + rs.getString("sid") + "\" type=\"button\" value=\"" + rs.getInt("sid") + "\" onclick=\"incr("+ rs.getString("sid") +");\"> <span class=\" glyphicon glyphicon-heart-empty\"> </span></button></span><br/>");
+                                        }
+                                    }%>
 
-                                <h3 align="left">Your Suggestions</h3>
-                                <form method="post" action="Suggest" >
-                                    <input type="text" align="center" class="  txt form-control" name="sugg" placeholder="Your suggestions goes here" />
+
+                               
+                                <p id="demo"></p>
+                                <script>
+                                    function decr(v)
+                                    {
+                                        //var x = document.getElementById("dec").value;
+                                        window.location = "http://localhost:8024/DownVote?sid=" + v;
 
 
+                                    }
+                                    function incr(v)
+                                    {
+                                        //var x = document.getElementById("inc").value;
+                                        window.location = "http://localhost:8024/UpVote?sid=" + v;
 
-                                    <div id="button-custom-res" align="right">
-                                        <input type="submit" value="Post">
-                                    </div>
-                                </form>
+                                    }
+                                </script>
+
                             </div>
 
+                            <h3 align="left">Your Suggestions</h3>
+                            <form method="post" action="Suggest" >
+                                <input type="text" align="center" class="  txt form-control" name="sugg" placeholder="Your suggestions goes here" />
 
+
+
+                                <button class="btn btn-danger" type="submit">
+                                        <span class=" glyphicon glyphicon-hand-up"></span>
+                                    </button>
+                            </form>
                         </div>
 
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul class="list-inline">
+                            <li>
+                                <a href="index.html">Home</a>
+                            </li>
+                            <li class="footer-menu-divider">&sdot;</li>
+                            <li>
+                                <a href="login.html">Login</a>
+                            </li>
+                            <li class="footer-menu-divider">&sdot;</li>
+
+                            <li>
+                                <a href="Offline">Offline Support</a>
+                            </li>
+                        </ul>
+                        <p class="copyright text-muted small">Copyright &copy; Speak Up Design Team 2015. All Rights Reserved</p>
                     </div>
                 </div>
             </div>
+        </footer>
 
-            <footer>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <ul class="list-inline">
-                                <li>
-                                    <a href="index.html">Home</a>
-                                </li>
-                                <li class="footer-menu-divider">&sdot;</li>
-                                <li>
-                                    <a href="login.html">Login</a>
-                                </li>
-                                <li class="footer-menu-divider">&sdot;</li>
+        <!-- jQuery -->
+        <script src="js/jquery.js"></script>
 
-                                <li>
-                                    <a href="support.html">Offline Support</a>
-                                </li>
-                            </ul>
-                            <p class="copyright text-muted small">Copyright &copy; Speak Up Design Team 2015. All Rights Reserved</p>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-
-            <!-- jQuery -->
-            <script src="js/jquery.js"></script>
-
-            <!-- Bootstrap Core JavaScript -->
-            <script src="js/bootstrap.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="js/bootstrap.min.js"></script>
 
     </body>
 

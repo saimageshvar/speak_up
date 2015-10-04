@@ -33,6 +33,9 @@ public class Login_Check extends HttpServlet {
                     session.setAttribute("fname" , u.fname);
                     session.setAttribute("lname" , u.lname);
                     session.setAttribute("email" , u.email);
+                    session.setAttribute("searches" , u.searches);
+                    session.setAttribute("comments" , u.comments);
+                    session.setAttribute("suggestions" , u.suggestions);
                     response.sendRedirect("http://localhost:8024/profile.jsp");
                 } else {
                     

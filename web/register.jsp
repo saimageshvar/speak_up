@@ -53,7 +53,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="#">Speak Up!</a>
+                <a class="navbar-brand topnav" href="index.jsp">Speak Up!</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -65,7 +65,7 @@
                         <a href="login.jsp">Login</a>
                     </li>
                     <li>
-                        <a href="offline.html">Offline Support</a>
+                        <a href="Offline">Offline Support</a>
                     </li>
                 </ul>
             </div>
@@ -93,31 +93,31 @@
 			                    <form role="form" action="http://localhost:8024/Register" method="post" class="registration-form">
 			                    	<div class="form-group">
 									<label class="sr-only" for="user-id">User Id</label>
-			                        	<input type="text" name="user-id" placeholder="abc" class="form-first-name form-control" id="form-first-name">
+			                        	<input type="text" name="user-id" placeholder="user-id " required class="form-first-name form-control" id="form-first-name">
 			                        </div>
 			                    	<div class="form-group">
 			                    		<label class="sr-only" for="form-first-name">First name</label>
-			                        	<input type="text" name="form-first-name" placeholder="XYZ" class="form-first-name form-control" id="form-first-name">
+			                        	<input type="text" name="form-first-name" placeholder="First name" required class="form-first-name form-control" id="form-first-name">
 			                        </div>
 			                        <div class="form-group">
 			                        	<label class="sr-only" for="form-last-name">Last name</label>
-			                        	<input type="text" name="form-last-name" placeholder="Last name..." class="form-last-name form-control" id="form-last-name">
+			                        	<input type="text" name="form-last-name" required placeholder="Last name..." class="form-last-name form-control" id="form-last-name">
 			                        </div>
 						<div class="form-group">
 			                        	<label class="sr-only" for="form-last-name">DOB</label>
-			                        	<input type="date" name="dob"  class="form-last-name form-control" id="form-last-name">
+			                        	<input type="date" name="dob" required class="form-last-name form-control" id="form-last-name">
 			                        </div>
 			                        <div class="form-group">
 			                        	<label class="sr-only" for="form-email">Email</label>
-			                        	<input type="text" name="form-email" placeholder="Email..." class="form-email form-control" id="form-email">
+			                        	<input type="text" name="form-email" required placeholder="Email..." class="form-email form-control" id="form-email">
 			                        </div>
 									<div class="form-group">
 			                        	<label class="sr-only" for="form-email">Password</label>
-			                        	<input type="password" name="form-email-password" placeholder="Password..." class="form-email form-control" id="form-email">
+			                        	<input type="password" name="form-email-password" required placeholder="Password..." class="form-email form-control" id="form-email">
 			                        </div>
 									<div class="form-group">
 			                        	<label class="sr-only" for="form-email">Re-Type Password</label>
-			                        	<input type="password" name="form-email-re-password" placeholder="Re-Type Password..." class="form-email form-control" id="form-email">
+			                        	<input type="password" name="form-email-re-password" required placeholder="Re-Type Password..." class="form-email form-control" id="form-email">
 			                        </div>
 			                        <div class="form-group">
 									
@@ -125,7 +125,7 @@
 			                        	<textarea name="form-about-yourself" placeholder="About yourself..." 
 			                        				class="form-about-yourself form-control" id="form-about-yourself"></textarea>
 			                        </div>
-			                        <button type="submit" class="btn">Sign me up!</button>
+			                        <button type="submit" class="btn" style="color:black">Sign me up!</button>
 			                    </form>
 		                    </div>
                         </div>
@@ -254,7 +254,7 @@
                         </li>
                         <li class="footer-menu-divider">&sdot;</li>
                         <li>
-                            <a href="support.html">Offline Support</a>
+                            <a href="Offline">Offline Support</a>
                         </li>
                     </ul>
                     <p class="copyright text-muted small">Copyright &copy; Speak Up Design Team 2015. All Rights Reserved</p>

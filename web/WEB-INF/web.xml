@@ -48,6 +48,14 @@
         <servlet-name>UpVote</servlet-name>
         <servlet-class>UpVote</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SuggestFromProfile</servlet-name>
+        <servlet-class>SuggestFromProfile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Offline</servlet-name>
+        <servlet-class>Offline</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -95,6 +103,14 @@
     <servlet-mapping>
         <servlet-name>UpVote</servlet-name>
         <url-pattern>/UpVote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SuggestFromProfile</servlet-name>
+        <url-pattern>/SuggestFromProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Offline</servlet-name>
+        <url-pattern>/Offline</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -1,3 +1,8 @@
+<%@page import="java.io.File"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
 <!DOCTYPE html>
 
 <%
@@ -17,6 +22,8 @@
 
     <head>
 
+
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,7 +37,7 @@
 
         <!-- Custom CSS -->
         <link href="css/landing-page.css" rel="stylesheet">
-
+        <link href="css/searchcss.css" rel="stylesheet">
         <!-- Custom Fonts -->
         <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="font-awesome/css/font-awesome.css" rel="stylesheet" media="screen">
@@ -57,23 +64,36 @@
         function lookup(inputString) {
             if (inputString.length == 0) {
                 $('#suggestions').hide();
+                $('#suggestions1').hide();
             } else {
                 $.post("list.jsp", {queryString: "" + inputString + ""}, function (data) {
                     if (data.length > 0) {
                         $('#suggestions').show();
                         $('#autoSuggestionsList').html(data);
+                        $('#suggestions1').show();
+                        $('#autoSuggestionsList1').html(data);
                     }
                 });
             }
         }
         function fill(thisValue) {
             $('#search').val(thisValue);
+            $('#emotion').val(thisValue);
             setTimeout("$('#suggestions').hide();", 200);
+            setTimeout("$('#suggestions1').hide();", 200);
         }
+
+
         </script>
 
         <style>
             .suggestionList li{
+                margin: 0px 0px 3px 0px;
+                padding: 3px;
+                cursor: pointer;
+            }
+
+            .suggestionList1 li{
                 margin: 0px 0px 3px 0px;
                 padding: 3px;
                 cursor: pointer;
@@ -117,7 +137,7 @@
                             <a href="login.html">Login</a>
                         </li>-->
                         <li>
-                            <a href="support.html">Offline Support</a>
+                            <a href="Offline">Offline Support</a>
                         </li>
                         <li>
                             <a href="logout.jsp">Logout</a>
@@ -140,32 +160,44 @@
                                 <div class="col-md-6 no-pad">
                                     <div class="user-pad">
                                         <h3>Welcome back, <%= session.getAttribute("user_id")%> </h3>
-                                        <h4 class="white"><i class="fa fa-check-circle-o"></i> Delhi, India</h4>
-                                        <h4 class="white"><i class="fa fa-twitter"></i> CoolesOCool</h4>
+                                        <!--<h4 class="white"><i class="fa fa-check-circle-o"></i> Delhi, India</h4>
+                                        <h4 class="white"><i class="fa fa-twitter"></i> CoolesOCool</h4>-->
+                                        <br/>
                                         <button  type="button" class="btn btn-labeled btn-info" onclick="location.href = 'edit%20profile.jsp';">
                                             <span class="btn-label"><i class="fa fa-pencil"></i></span>Edit Profile</button>
                                     </div>
                                 </div>
                                 <div class="col-md-6 no-pad">
                                     <div class="user-image">
-                                        <img src="pro_pic/<%= session.getAttribute("user_id")%>.jpg" class="img-responsive thumbnail">-->
-                                        <!--<img src="https://farm7.staticflickr.com/6163/6195546981_200e87ddaf_b.jpg" class="img-responsive thumbnail">-->
 
+                                        <% File file = new File("C:/Users/user/Documents/NetBeansProjects/speak_up/web/pro_pic/" + session.getAttribute("user_id") + ".jpg");
+                                           Boolean exists = file.exists();
+                                            if (file.exists() && file.isFile()) {
+                                        %>
+
+                                        <img src="pro_pic/<%= session.getAttribute("user_id")%>.jpg" class="img-responsive thumbnail">
+                                        <!--<img src="https://farm7.staticflickr.com/6163/6195546981_200e87ddaf_b.jpg" class="img-responsive thumbnail">-->
+                                        
+                                        <% } else { %>
+                                        
+                                        <img src="pro_pic/default.jpg" class="img-responsive thumbnail">
+                                        <% } %>
+                                        
                                     </div>
                                 </div>
                             </div>
                             <div class="row overview">
                                 <div class="col-md-4 user-pad text-center">
-                                    <h3>FOLLOWERS</h3> 
-                                    <h4>2,784</h4>
+                                    <h3 style="color:blue">SEARCHES</h3> 
+                                    <h4><%= session.getAttribute("searches")%></h4>
                                 </div>
                                 <div class="col-md-4 user-pad text-center">
-                                    <h3>FOLLOWING</h3>
-                                    <h4>456</h4>
+                                    <h3 style="color:blue">COMMENTS</h3>
+                                    <h4><%= session.getAttribute("comments")%></h4>
                                 </div>
                                 <div class="col-md-4 user-pad text-center">
-                                    <h3>SUGGESTIONS</h3>
-                                    <h4>4,901</h4>
+                                    <h3 style="color:blue">SUGGESTIONS</h3>
+                                    <h4><%= session.getAttribute("suggestions")%></h4>
                                 </div>
 
                             </div>
@@ -175,9 +207,9 @@
                                 <a href="#" class="btn btn-block btn-default active">
                                     <i class="fa fa-bell-o fa-3x"></i>
                                 </a>
-                                <a href="#" class="btn btn-default">
+                               <!-- <a href="#" class="btn btn-default">
                                     <i class="fa fa-envelope-o fa-3x"></i>
-                                </a>
+                                </a> -->
                                 <a href="#" class="btn btn-default">
                                     <i class="fa fa-laptop fa-3x"></i>
                                 </a>
@@ -186,28 +218,37 @@
                                 </a>
                             </div>
                         </div>
+                                 <%
+                                    String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+                                    String DB_URL = "jdbc:mysql://localhost:3306/speak_up";
+                                    String un = "root";
+                                    String pwd = "password";
+                                    Connection conn = null;
+                                    Statement stmt = null;
+                                    Class.forName(JDBC_DRIVER);
+                                    conn = DriverManager.getConnection(DB_URL, un, pwd);
+                                    stmt = conn.createStatement();
+                                    String sql;
+                                    //retrieving comments
+
+                                    sql = "select emotion from emotions order by hits desc limit 4";
+                                    ResultSet rs = stmt.executeQuery(sql);
+
+                                %>
                         <div class="col-md-4 user-menu user-pad">
                             <div class="user-menu-content active">
                                 <h3>
-                                    Recent Interactions
+                                    Most Viewed
                                 </h3>
                                 <ul class="user-menu-list">
-                                    <li>
-                                        <h4><i class="fa fa-user coral"></i> Roselynn Smith followed you.</h4>
-                                    </li>
-                                    <li>
-                                        <h4><i class="fa fa-heart-o coral"></i> Jonathan Hawkins followed you.</h4>
-                                    </li>
-                                    <li>
-                                        <h4><i class="fa fa-paper-plane-o coral"></i> Gracie Jenkins followed you.</h4>
-                                    </li>
-                                    <li>
-                                        <button type="button" class="btn btn-labeled btn-success" href="#">
-                                            <span class="btn-label"><i class="fa fa-bell-o"></i></span>View all activity</button>
-                                    </li>
+                                    <%     while (rs.next()) {%>
+
+                                    <li><h4><a href="Search?search=<%= rs.getString("emotion") %>"><%= rs.getString("emotion") %></a></h4> </li>
+
+                                    <% } %>
                                 </ul>
                             </div>
-                            <div class="user-menu-content">
+                            <!--<div class="user-menu-content">
                                 <h3>
                                     Your Inbox
                                 </h3>
@@ -226,7 +267,7 @@
                                             <span class="btn-label"><i class="fa fa-envelope-o"></i></span>View All Messages</button>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                             <div class="user-menu-content">
                                 <h3>
                                     Search
@@ -261,11 +302,11 @@
                                                 <div class="input-group col-lg-20">
                                                     <form action="Search" method="post">    
                                                         <input type="text" class="  search-query form-control" placeholder="Search" name="search" id="search" autocomplete="off" onkeyup="lookup(this.value);" onblur="fill();" />
-                                                    <span class="input-group-btn">
-                                                        <button class="btn btn-danger" type="submit">
-                                                            <span class=" glyphicon glyphicon-search"></span>
-                                                        </button>
-                                                    </span>
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-danger" type="submit">
+                                                                <span class=" glyphicon glyphicon-search"></span>
+                                                            </button>
+                                                        </span>
                                                     </form>
                                                 </div>
 
@@ -286,17 +327,42 @@
                                 </h2>
                                 <center><i class="fa fa-cloud-upload fa-4x"></i></center>
                                 <div class="share-links">
-                                    <center><button type="button" class="btn btn-lg btn-labeled btn-success" href="#" style="margin-bottom: 15px;">
-                                            <span class="btn-label"><i class="fa fa-bell-o"></i></span>CHOOSE EMOTION
-                                        </button></center>
-                                    <center>
-                                        <!--<button type="button" class="btn btn-lg btn-labeled btn-warning" href="#">
-                            <span class="btn-label"><i class="fa fa-bell-o"></i></span>A WORK IN PROGRESS
-                    </button>-->
-                                        <label class="sr-only" for="form-about-yourself">Enter here </label>
-                                        <textarea name="form-about-yourself" placeholder="Suggest..." 
-                                                  class="form-about-yourself form-control" id="form-about-yourself"></textarea>
-                                    </center>
+                                    <form action="SuggestFromProfile" method="get">
+                                        <center><!--<button type="button" class="btn btn-lg btn-labeled btn-success" href="#" style="margin-bottom: 15px;">
+                                                <span class="btn-label"><i class="fa fa-bell-o"></i></span>CHOOSE EMOTION
+                                            </button> -->
+                                            <div id="custom-search-input" align="center">
+
+                                                <div class="input-group col-md-10" align="center" >
+
+                                                    <input type="text" class="  search-query form-control" placeholder="Choose Emotion.." name="emotion" id="emotion" autocomplete="off" onkeyup="lookup(this.value);" onblur="fill();" />
+
+
+                                                </div>
+                                            </div>
+                                            <div  id="suggestions1" style="display:none; ">
+                                                <div class="suggestionList1" id="autoSuggestionsList1">
+                                                </div>
+                                            </div>
+
+                                        </center>
+                                        <br />
+                                        <br />
+                                        <center>
+                                            <!--<button type="button" class="btn btn-lg btn-labeled btn-warning" href="#">
+                                <span class="btn-label"><i class="fa fa-bell-o"></i></span>A WORK IN PROGRESS
+                        </button>-->
+                                            <label class="sr-only" for="form-about-yourself">Enter here </label>
+                                            <textarea name="suggest" placeholder="Suggest..." 
+                                                      class="form-about-yourself form-control" id="form-about-yourself"></textarea>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-danger" type="submit">
+                                                    <span class=" glyphicon glyphicon-pencil"></span>
+                                                </button>
+                                            </span>
+
+                                        </center>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -462,7 +528,7 @@
                             <li class="footer-menu-divider">&sdot;</li>
                         -->
                         <li>
-                            <a href="support.html">Offline Support</a>
+                            <a href="Offline">Offline Support</a>
                         </li>
                         </ul>
 

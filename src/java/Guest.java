@@ -13,6 +13,7 @@ public class Guest {
     String gender;
     String dob;
     String email;
+   
 
     Guest(String u_id, String pwd, String fn, String ln, String g, String dob, String mail_id) {
         this.user_id = u_id;
@@ -40,7 +41,7 @@ public class Guest {
             }
             conn = DriverManager.getConnection(DB_URL, un, pwd);
             stmt = conn.createStatement();
-            String sql = "insert into usermaster values('" + this.user_id + "','" + this.password + "','" + this.fname + "','" + this.lname + "'," + this.gender + ",'" + this.dob + "','" + this.email + "',null)";
+            String sql = "insert into usermaster values('" + this.user_id + "','" + this.password + "','" + this.fname + "','" + this.lname + "'," + this.gender + ",'" + this.dob + "','" + this.email + "',null,0,0,0)";
             int v = stmt.executeUpdate(sql);
             conn.commit();
             if (v != 0) {

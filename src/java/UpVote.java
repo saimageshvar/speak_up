@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -64,6 +65,26 @@ public class UpVote extends HttpServlet {
                 stmt.executeUpdate(sql);
                 sql = "update suggestions set votes = votes + 1 where sid = " + request.getParameter("sid");
                 stmt.executeUpdate(sql);
+                sql = "select votes,suggestions from suggestions where sid = " + request.getParameter("sid");
+                ResultSet rs = stmt.executeQuery(sql);
+                if(rs.next())
+                {
+                    if(rs.getInt(1)> 10)
+                    {
+                        sql = "select max(sen_id) from main where emotion='" + session.getAttribute("emotion") + "'";
+                        Statement st=conn.createStatement();
+                        ResultSet rs1 = st.executeQuery(sql);
+                        if(rs1.next())
+                        {
+                            sql = "insert into main values('" + session.getAttribute("emotion") + "'," + rs1.getInt(1) + "+1,'" + rs.getString(2) + "')";
+                            st.executeUpdate(sql);
+                            sql = "delete from suggestions where sid=" + request.getParameter("sid");
+                            st.executeUpdate(sql);
+                            sql = "delete from upvote where sid=" + request.getParameter("sid");
+                            st.executeUpdate(sql);
+                        }
+                    }
+                }
                 //out.println(session.getAttribute("emotion"));
                 response.sendRedirect("http://localhost:8024/Regusersresult.jsp");
             } catch (SQLException ex) {

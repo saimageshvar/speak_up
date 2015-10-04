@@ -6,7 +6,10 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -27,7 +30,12 @@ public class Search extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
             String emotion = request.getParameter("search");
-
+            String connectionURL = "jdbc:mysql://localhost:3306/speak_up";
+            Connection con;
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(connectionURL, "root", "password");
+            Statement st = con.createStatement();
+            String sql;
             QueryProcessor q;
 
             if (emotion.contains(",")) {
@@ -41,16 +49,18 @@ public class Search extends HttpServlet {
             //out.println(request.getParameter("search"));
             String result[] = q.search();
             //out.println(result[1]);
-            session.setAttribute("emotion" , emotion);
+            session.setAttribute("emotion", emotion);
             session.setAttribute("result", result[0]);
-            session.setAttribute("sen_id" , result[1]);
+            session.setAttribute("sen_id", result[1]);
             if (session.getAttribute("user_id") == null) {
                 request.getRequestDispatcher("searchres.jsp").forward(request, response);
             } else {
-                
+                sql = "update usermaster set searches = searches + 1 where user_id='" + session.getAttribute("user_id") + "'";
+                st.executeUpdate(sql);
+                session.setAttribute("searches", (Integer)session.getAttribute("searches")+1);
+                //out.println(session.getAttribute("searches"));
                 request.getRequestDispatcher("Regusersresult.jsp").forward(request, response);
             }
-            
 
         }
 

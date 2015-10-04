@@ -58,19 +58,19 @@ a <!DOCTYPE html>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="index.html">Speak Up!</a>
+                <a class="navbar-brand topnav" href="index.jsp">Speak Up!</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="register.html">Register</a>
+                        <a href="register.jsp">Register</a>
                     </li>
                     <li>
-                        <a href="login.html">Login</a>
+                        <a href="login.jsp">Login</a>
                     </li>
                     <li>
-                        <a href="offline.html">Offline Support</a>
+                        <a href="Offline">Offline Support</a>
                     </li>
                 </ul>
             </div>
@@ -93,10 +93,10 @@ a <!DOCTYPE html>
 				 <div class = "container">
 	<div class="wrapper">
 		<form action="http://localhost:8024/Login_Check" method="post" name="Login_Form" class="form-signin">       
-		    <h3 class="form-signin-heading">Welcome Back! Please Sign In</h3>
+		    <h3 class="form-signin-heading" style="color: blue">Welcome Back! Please Sign In</h3>
 			  <hr class="colorgraph"><br>
 			  <% if(request.getParameter("auth")!=null) { %>
-                            Invalid username/password.Try again
+                          <h4 style="color:black">Invalid username/password.Try again </h4>
                           <% } %>
 			  <input type="text" class="form-control" name="Username" placeholder="Username" required="" autofocus="" />
                           
@@ -249,7 +249,7 @@ a <!DOCTYPE html>
                         </li>
                         <li class="footer-menu-divider">&sdot;</li>
                         <li>
-                            <a href="support.html">Offline Support</a>
+                            <a href="Offline">Offline Support</a>
                         </li>
                     </ul>
                     <p class="copyright text-muted small">Copyright &copy; Speak Up Design Team 2015. All Rights Reserved</p>

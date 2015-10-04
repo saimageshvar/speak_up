@@ -92,7 +92,7 @@
                             <a href="login.jsp">Login</a>
                         </li>
                         <li>
-                            <a href="offline.html">Offline Support</a>
+                            <a href="Offline">Offline Support</a>
                         </li>
                     </ul>
                 </div>
@@ -135,13 +135,13 @@
                                     <hr class="intro-divider"> 
                                     <ul class="list-inline intro-social-buttons">
                                         <li>
-                                            <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                                            <a href="https://twitter.com/Speak_up" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
                                         </li>
                                         <li>
-                                            <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                                            <a href="https://github.com/saimageshvar/speak_up" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
                                         </li>
                                         <li>
-                                            <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+                                            <a href="https://linkedin.com/Speak_up" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
                                         </li>
                                     </ul>
                                     <</div> 
@@ -271,7 +271,7 @@
                                                         </li>
                                                         <li class="footer-menu-divider">&sdot;</li>
                                                         <li>
-                                                            <a href="support.html">Offline Support</a>
+                                                            <a href="Offline">Offline Support</a>
                                                         </li>
                                                     </ul>
                                                     <p class="copyright text-muted small">Copyright &copy; Speak Up Design Team 2015. All Rights Reserved</p>
